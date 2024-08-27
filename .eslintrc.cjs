@@ -6,9 +6,7 @@ module.exports = {
     'plugin:@angular-eslint/template/process-inline-templates',
     'plugin:@angular-eslint/recommended'
   ],
-  overrides: {
-    rules: {
-      '@typescript-eslint/explicit-function-return-type': 'off'
-    }
+  rules: {
+    '@typescript-eslint/explicit-function-return-type': 'off'
   }
 }

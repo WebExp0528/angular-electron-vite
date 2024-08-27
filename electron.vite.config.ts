@@ -1,6 +1,7 @@
 import { resolve } from 'path'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
 import angular from '@analogjs/vite-plugin-angular'
+import checker from 'vite-plugin-checker'
 
 export default defineConfig({
   main: {
@@ -14,7 +15,15 @@ export default defineConfig({
         }
       }
     },
-    plugins: [externalizeDepsPlugin()]
+    plugins: [
+      externalizeDepsPlugin(),
+      checker({
+        eslint: {
+          // for example, lint .ts and .tsx
+          lintCommand: 'eslint "./electron/main/**/*.{ts}"'
+        }
+      })
+    ]
   },
   preload: {
     build: {
@@ -27,7 +36,15 @@ export default defineConfig({
         }
       }
     },
-    plugins: [externalizeDepsPlugin()]
+    plugins: [
+      externalizeDepsPlugin(),
+      checker({
+        eslint: {
+          // for example, lint .ts and .tsx
+          lintCommand: 'eslint "./electron/preload/**/*.{ts}"'
+        }
+      })
+    ]
   },
   renderer: {
     root: '.',
@@ -41,6 +58,14 @@ export default defineConfig({
     resolve: {
       mainFields: ['module']
     },
-    plugins: [angular()]
+    plugins: [
+      angular(),
+      checker({
+        eslint: {
+          // for example, lint .ts and .tsx
+          lintCommand: 'eslint "./src/**/*.{ts,tsx}"'
+        }
+      })
+    ]
   }
 })
